@@ -84,9 +84,11 @@ class ListForm extends React.Component{
         this.setState({
             currentItem: ''
         });
-
-
     } 
+
+    TakeTextOnly(e){
+
+    }
 
 
     render(){
@@ -94,7 +96,7 @@ class ListForm extends React.Component{
             
                 <form action="" onSubmit={this.handleSubmit}>
                 <input type="text" onChange = {this.handleChange} value={this.state.currentItem} ref = 'inputfield' />
-                <button>add</button>
+                <button disabled={!this.state.currentItem}>add</button>
                 </form>
         )
 
