@@ -12,6 +12,7 @@ class App extends React.Component {
             //where added list items will go. this goes here because the app is where the action of gettin new list items is going to happen
         }
         this.addNewItem = this.addNewItem.bind(this);
+        this.removeItem = this.removeItem.bind(this);
     }
     //new method to call by submitForm, currentItem is the user input which is why we added it as the param
     addNewItem(currentItem){
@@ -23,17 +24,26 @@ class App extends React.Component {
             newListArray: newList
         })
     }
+    //remove list item
+    removeItem(index){
+       const newList = Array.from(this.state.newListArray);
+       newList.splice(index, 1);
+       this.setState({
+           newListArray: newList
+       });
+    }
+
     render(){
       return (
         <div>
-            <h1>Lists</h1>
+            <h1>Cateogory</h1>
             <ListForm submitForm={this.addNewItem} /> 
             {/* passing function through submitForm */}   
             <ul>
             {/* map through list array and return the inputted item */}
                 {this.state.newListArray.map((todo, index) =>{
                     return(
-                    <ListItem key={`item-${index}`} item = {todo} />
+                    <ListItem key={`item-${index}`} item = {todo} remove={this.removeItem} itemIndex={index}/>
                     )
                     // listItem defined below as props 
                 })}
@@ -42,15 +52,6 @@ class App extends React.Component {
 
       )          
     }   
-}
-
-//dummy component just an empty li, making a place for the input info to go
-const ListItem = (props)=>{
-    console.log(props);
-    return(
-        <li>{props.item}</li>
-        
-    )
 }
 
 
@@ -69,7 +70,8 @@ class ListForm extends React.Component{
 
     handleChange(e) {
         this.setState({
-            currentItem: e.target.value
+            [e.target.name]: e.target.value
+            //this will allow me to reuse this event, it creates a key on the object that represents whatever value that is stored in that variable. the name attribute in the input has to match the key in the initial state.
             
         })
 
@@ -86,22 +88,29 @@ class ListForm extends React.Component{
         });
     } 
 
-    TakeTextOnly(e){
-
-    }
-
-
     render(){
         return(
             
                 <form action="" onSubmit={this.handleSubmit}>
-                <input type="text" onChange = {this.handleChange} value={this.state.currentItem} ref = 'inputfield' />
+                <input type="text" name="currentItem" onChange = {this.handleChange} value={this.state.currentItem} ref = 'inputfield' />
                 <button disabled={!this.state.currentItem}>add</button>
                 </form>
         )
 
     } //render end  
 } //ListForm componenet ends
+
+
+//dummy component just an empty li, making a place for the input info to go
+const ListItem = (props) => {
+    console.log(props);
+    return (
+        <li>{props.item} <button onClick = {() => props.remove(props.itemIndex)}>❌</button></li>
+        //onClick is going to use the arrow funciton as the CB functino, and the arrow function will CALL the remove method and pass in that value. when this component loads, its not called right away, the method is not called right away but put into the arrow functino and used as the CB
+
+    )
+}
+
 
 ReactDOM.render(<App />, document.getElementById('app'));
 
