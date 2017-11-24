@@ -7,12 +7,12 @@ class App extends React.Component {
     constructor(){
         super();
         this.state ={
-            newListArray: []
-           
+            newListArray: [],           
             //where added list items will go. this goes here because the app is where the action of gettin new list items is going to happen
         }
         this.addNewItem = this.addNewItem.bind(this);
         this.removeItem = this.removeItem.bind(this);
+        this.markItem = this.markItem.bind(this);
     }
     //new method to call by submitForm, currentItem is the user input which is why we added it as the param
     addNewItem(currentItem){
@@ -32,7 +32,24 @@ class App extends React.Component {
            newListArray: newList
        });
     }
-
+    //mark items as complete method
+    //when item is clicked, show item as greyed out with strikethrough
+    //when item is clicked, add class of 'marked'
+    // markItem(item){
+    // console.log("it works");
+    
+    markItem(index){
+        console.log("works");
+        this.setState({
+            currentItem: {
+                marked: true,
+                itemText: this.state.itemText
+        
+            }
+        }) 
+            console.log('marked');  
+    }
+    
     render(){
       return (
         <div>
@@ -43,7 +60,7 @@ class App extends React.Component {
             {/* map through list array and return the inputted item */}
                 {this.state.newListArray.map((todo, index) =>{
                     return(
-                    <ListItem key={`item-${index}`} item = {todo} remove={this.removeItem} itemIndex={index}/>
+                    <ListItem key={`item-${index}`} item = {todo.itemText} remove={this.removeItem} itemIndex={index} mark={this.markItem}/>
                     )
                     // listItem defined below as props 
                 })}
@@ -54,14 +71,16 @@ class App extends React.Component {
     }   
 }
 
-
 //component for input form where user inputs will be entered
 class ListForm extends React.Component{
     //constructor is where we will initialize state, or bind methods, in this case, bind the event handler for 'on submit' adding of list items 
     constructor(){
         super();
         this.state = {
-                currentItem: ''
+                currentItem: {
+                    marked: false,
+                    itemText: ""
+                }
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -70,7 +89,14 @@ class ListForm extends React.Component{
 
     handleChange(e) {
         this.setState({
-            [e.target.name]: e.target.value
+            currentItem: {
+                marked: this.state.currentItem.marked,
+                itemText: e.target.value
+            }
+
+
+
+            // [e.target.name]: e.target.value
             //this will allow me to reuse this event, it creates a key on the object that represents whatever value that is stored in that variable. the name attribute in the input has to match the key in the initial state.
             
         })
@@ -84,7 +110,10 @@ class ListForm extends React.Component{
         this.props.submitForm(this.state.currentItem);
         // referencing a functino where i'm calling and passing 
         this.setState({
-            currentItem: ''
+            currentItem: {
+                marked: false,
+                itemText: ""
+            }
         });
     } 
 
@@ -92,8 +121,8 @@ class ListForm extends React.Component{
         return(
             
                 <form action="" onSubmit={this.handleSubmit}>
-                <input type="text" name="currentItem" onChange = {this.handleChange} value={this.state.currentItem} ref = 'inputfield' />
-                <button disabled={!this.state.currentItem}>add</button>
+                <input type="text" name="itemText" onChange = {this.handleChange} value={this.state.currentItem.itemText} ref = 'inputfield' />
+                <button disabled={!this.state.currentItem.itemText}>add</button>
                 </form>
         )
 
@@ -105,7 +134,11 @@ class ListForm extends React.Component{
 const ListItem = (props) => {
     console.log(props);
     return (
-        <li>{props.item} <button onClick = {() => props.remove(props.itemIndex)}>❌</button></li>
+
+        <li>
+            <span onClick = {()=> props.mark(props.itemIndex)}>{props.item}</span> 
+            <button onClick = {() => props.remove(props.itemIndex)}>❌</button>
+        </li>
         //onClick is going to use the arrow funciton as the CB functino, and the arrow function will CALL the remove method and pass in that value. when this component loads, its not called right away, the method is not called right away but put into the arrow functino and used as the CB
 
     )
