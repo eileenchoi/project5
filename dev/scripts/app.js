@@ -39,15 +39,14 @@ class App extends React.Component {
     // console.log("it works");
     
     markItem(index){
-        console.log("works");
-        this.setState({
-            currentItem: {
-                marked: true,
-                itemText: this.state.itemText
         
+        this.setState({
+            newList: {
+                marked: true,
+                itemText: ""
             }
         }) 
-            console.log('marked');  
+            // console.log(newList);  
     }
     
     render(){
@@ -95,7 +94,6 @@ class ListForm extends React.Component{
             }
 
 
-
             // [e.target.name]: e.target.value
             //this will allow me to reuse this event, it creates a key on the object that represents whatever value that is stored in that variable. the name attribute in the input has to match the key in the initial state.
             
@@ -108,7 +106,7 @@ class ListForm extends React.Component{
     handleSubmit (e) {
         e.preventDefault();
         this.props.submitForm(this.state.currentItem);
-        // referencing a functino where i'm calling and passing 
+        // referencing a function where i'm calling and passing 
         this.setState({
             currentItem: {
                 marked: false,
