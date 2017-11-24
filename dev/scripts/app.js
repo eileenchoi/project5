@@ -17,7 +17,6 @@ class App extends React.Component {
     //new method to call by submitForm, currentItem is the user input which is why we added it as the param
     addNewItem(currentItem){
     //clone current array, push user inputs to this array, set state to newUserArray
-
         const newList = Array.from(this.state.newListArray);
         newList.push(currentItem);
         this.setState({
@@ -39,14 +38,11 @@ class App extends React.Component {
     // console.log("it works");
     
     markItem(index){
+        const itemMarked= Array.from(this.state.newListArray);
+        itemMarked.marked = true,
         
-        this.setState({
-            newList: {
-                marked: true,
-                itemText: ""
-            }
-        }) 
-            // console.log(newList);  
+        this.setState(itemMarked);
+    
     }
     
     render(){
