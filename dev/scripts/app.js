@@ -61,52 +61,34 @@ class App extends React.Component {
         const dbRef = firebase.database().ref();
         dbRef.push(currentItem)
         console.log(currentItem)
-   
-
     }
    
     removeItem(index){
-    //    const newList = Array.from(this.state.newListArray);
-    //    newList.splice(index, 1);
-    //    this.setState({
-    //        newListArray: newList
     const dbRef = firebase.database().ref(index);
     dbRef.remove();
-           
-    //    });
+
     }
 
-    //mark items as complete method
-    //when item is clicked, show item as greyed out with strikethrough
-    //when item is clicked, add class of 'marked'
-    // markItem(item){
-    // console.log("it works");
     
-    markItem(index){
+
+    //toggle items
+    markItem(index, key){
         const itemMarked= Array.from(this.state.newListArray);
         if (itemMarked[index].marked == true){
             itemMarked[index].marked = false
         } else {
-            itemMarked[index].marked = true
+            itemMarked[index].marked = true 
         }
-        
-        // if itemMarked[index].marked[value = 'true']{
-        //     textDecorationLine: line - through;
-        // } else {
-        //     textDecorationLine: none;
-        // }
-        
-        // if (itemMarked[index].marked == true){
-        //     return  itemMarked[index].marked as itemText with strikethrough}
-        // } else {
-        //     return itemMarked.Marked[index].marked !strikethrough
-        // }
+        console.log(itemMarked[index], 'i am what is going into firebase')
+        const dbRef = firebase.database().ref(`${key}/`);
+        dbRef.update(itemMarked[index]);
 
-        this.setState({
-            newListArray: itemMarked
-        });
-        
+        // this.setState({
+        //     newListArray: itemMarked
+        // });
+             
     }
+
     render(){
       return (
         <div>
@@ -117,9 +99,8 @@ class App extends React.Component {
             {/* map through list array and return the inputted item */}
                 {this.state.newListArray.map((todo, index) =>{
                     return(
-                    <ListItem key={todo.key} data={todo} item={todo.itemText} remove={this.removeItem} itemIndex={index} mark={this.markItem} />
-                    
-                    
+                    <ListItem key={todo.key} data={todo} item={todo.itemText} remove={this.removeItem} itemIndex={index} mark={this.markItem} complete={todo.marked} />
+                      
                     )
                     // listItem defined below as props 
                 })}
@@ -146,7 +127,6 @@ class ListForm extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
-
     handleChange(e) {
         this.setState({
             currentItem: {
@@ -179,19 +159,30 @@ class ListForm extends React.Component{
                 <button disabled={!this.state.currentItem.itemText}>add</button>
                 </form>
         )
-        
 
     } //render end  
 } //ListForm componenet ends
 
+//was dummy component, can change back if we need to
+class ListItem extends React.Component{
+    constructor(props){
+        super(props);
+      
 
-//dummy component just an empty li, making a place for the input info to go
-const ListItem = (props) => {
+    }
+
+    render() {
     return (
 
         <li>
-            <span onClick = {()=> props.mark(props.itemIndex)}>{props.item}</span> 
-            <button onClick = {() => props.remove(props.data.key)}>❌</button>
+            {this.props.complete === true ? 
+                <span className="strike" onClick={() => this.props.mark(this.props.itemIndex, this.props.data.key)}> {this.props.item}
+            </span> :  
+            <span onClick = {()=> this.props.mark(this.props.itemIndex, this.props.data.key)}>
+                {this.props.item}
+            </span> 
+            }
+        <button onClick = {() => this.props.remove(this.props.data.key)}>🐼</button>
         </li>
  
         
@@ -199,7 +190,7 @@ const ListItem = (props) => {
 
     )
 }
-
+}
 
 ReactDOM.render(<App />, document.getElementById('app'));
 
