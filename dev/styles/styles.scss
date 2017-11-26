@@ -2,6 +2,116 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 .clearfix:after {visibility: hidden; display: block; font-size: 0; content: ''; clear: both; height: 0; }
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
+
+//variables
+$font-stack: 'Pacifico', cursive;
+$user-font: 'Permanent Marker', cursive;
+$user-font2: 'Shadows Into Light', cursive;
+$h1-fontSize: '40px';
+
+
+//general styles
+
+body{
+    border: 2px solid red;
+    background-image: url('../../assets/blackboard.png');
+    background-size: cover 100%;
+    background-repeat: no-repeat;
+    
+
+
+}
+
+
+.fa-times-circle-o:before{
+    font-size: 20px;
+}
+
+
+h1 {
+    font-size: $h1-fontSize;
+    font-family: $font-stack;
+    color: white;
+    
+}
 .strike{
-    text-decoration: line-through;
+    text-decoration: line-through grey;
+   
+}
+
+//div styles
+.outerDiv {
+    border: 2px solid pink;
+    display:flex;
+    justify-content: center;
+    align-content: center;
+    // height: 100vh;
+   
+    
+}
+
+
+.innerDiv {
+    border: 2px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 50px;
+}
+
+form{
+    // border: 2px solid green;
+        input{
+            border-bottom: 2px solid white;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            height: 40px;
+            background: none;
+            font-size: 35px;
+            font-family: $user-font2;
+            color: white;
+            text-align: center;
+
+        }
+       
+        input:focus{
+            outline:none;
+            background: none;
+        }
+        button{
+            display: none;
+        
+        }
+}
+
+button{
+    background: none;
+    padding: 0;
+    margin: 20px;
+    color: grey;
+    border: none;
+       
+}
+button:focus{
+    outline: none;
+}
+
+
+ul {
+    color: white;
+    font-family: $user-font2;
+    font-size: 40px;
+    border-bottom: white;
+        li{
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 40px;
+            margin: 15px;
+             
+        }
+      
 }

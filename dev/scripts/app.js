@@ -68,8 +68,7 @@ class App extends React.Component {
     dbRef.remove();
 
     }
-
-    
+  
 
     //toggle items
     markItem(index, key){
@@ -83,29 +82,26 @@ class App extends React.Component {
         const dbRef = firebase.database().ref(`${key}/`);
         dbRef.update(itemMarked[index]);
 
-        // this.setState({
-        //     newListArray: itemMarked
-        // });
-             
     }
 
     render(){
       return (
-        <div>
-            <h1>Cateogory</h1>
-            <ListForm submitForm={this.addNewItem} /> 
-            {/* passing function through submitForm */}   
-            <ul>
-            {/* map through list array and return the inputted item */}
-                {this.state.newListArray.map((todo, index) =>{
-                    return(
-                    <ListItem key={todo.key} data={todo} item={todo.itemText} remove={this.removeItem} itemIndex={index} mark={this.markItem} complete={todo.marked} />
-                      
-                    )
-                    // listItem defined below as props 
-                })}
-            </ul>  
-        </div>
+        <div className = "outerDiv">
+            <div className="innerDiv">
+              <h1>Grocery List</h1>
+                <ListForm submitForm={this.addNewItem} /> 
+                {/* passing function through submitForm */}   
+                <ul>
+                {/* map through list array and return the inputted item */}
+                    {this.state.newListArray.map((todo, index) =>{
+                        return(
+                        <ListItem key={todo.key} data={todo} item={todo.itemText} remove={this.removeItem} itemIndex={index} mark={this.markItem} complete={todo.marked} /> 
+                        )
+                        // listItem defined below as props 
+                    })}
+                </ul>  
+            </div> 
+        </div> //outerDiv
 
       )          
     }   
@@ -182,7 +178,9 @@ class ListItem extends React.Component{
                 {this.props.item}
             </span> 
             }
-        <button onClick = {() => this.props.remove(this.props.data.key)}>🐼</button>
+            <button onClick={() => this.props.remove(this.props.data.key)}>
+            <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+            </button>
         </li>
  
         
