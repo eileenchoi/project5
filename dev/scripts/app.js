@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import firebase from 'firebase';
+// import { Timeline } from 'react-twitter-widgets'
+// import List from './List'
 
 // Initialize Firebase
 const config = {
@@ -18,7 +20,9 @@ class App extends React.Component {
     constructor(){
         super();
         this.state ={
-            newListArray: [],           
+            newListArray: [],
+   
+                       
             //where added list items will go. this goes here because the app is where the action of gettin new list items is going to happen
         }
         this.addNewItem = this.addNewItem.bind(this);
@@ -78,7 +82,7 @@ class App extends React.Component {
         } else {
             itemMarked[index].marked = true 
         }
-        console.log(itemMarked[index], 'i am what is going into firebase')
+        // console.log(itemMarked[index], 'i am what is going into firebase')
         const dbRef = firebase.database().ref(`${key}/`);
         dbRef.update(itemMarked[index]);
 
@@ -88,7 +92,9 @@ class App extends React.Component {
       return (
         <div className = "outerDiv">
             <div className="innerDiv">
-              <h1>Grocery List</h1>
+            <div className = "header">
+                <h1>Grocery List</h1>
+              </div>
                 <ListForm submitForm={this.addNewItem} /> 
                 {/* passing function through submitForm */}   
                 <ul>
@@ -100,7 +106,8 @@ class App extends React.Component {
                         // listItem defined below as props 
                     })}
                 </ul>  
-            </div> 
+            </div>
+            <follow username="@eileenchoi_" />
         </div> //outerDiv
 
       )          
@@ -151,13 +158,13 @@ class ListForm extends React.Component{
         return(
             
                 <form action="" onSubmit={this.handleSubmit}>
-                <input type="text" name="itemText" onChange = {this.handleChange} value={this.state.currentItem.itemText} ref = 'inputfield' />
+                <input type="text" name="itemText" placeholder="Add Item" onChange = {this.handleChange} value={this.state.currentItem.itemText} ref = 'inputfield' />
                 <button disabled={!this.state.currentItem.itemText}>add</button>
                 </form>
         )
 
     } //render end  
-} //ListForm componenet ends
+} //ListForm component ends
 
 //was dummy component, can change back if we need to
 class ListItem extends React.Component{
@@ -190,6 +197,7 @@ class ListItem extends React.Component{
 }
 }
 
+
 ReactDOM.render(<App />, document.getElementById('app'));
 
 //pseudo code
@@ -207,7 +215,7 @@ ReactDOM.render(<App />, document.getElementById('app'));
     //need function to remove item on click
     //clear the 'value' of the input when the 'done' is checked
     //toggle list item to grey (text muted) when the item is clicked, back to black when unclicked. 
-  //put the new list item on the page in teh existing <ul>
+  //put the new list item on the page in the existing <ul>
 
 
   

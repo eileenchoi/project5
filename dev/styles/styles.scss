@@ -7,32 +7,72 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 $font-stack: 'Pacifico', cursive;
 $user-font: 'Permanent Marker', cursive;
 $user-font2: 'Shadows Into Light', cursive;
-$h1-fontSize: '40px';
+
 
 
 //general styles
 
+
 body{
-    border: 2px solid red;
-    background-image: url('../../assets/blackboard.png');
-    background-size: cover 100%;
-    background-repeat: no-repeat;
-    
+    background: linear-gradient(141deg, #05f0b3, #59085a);
+    background-size: 400% 400%;
+    height: 100vh;
 
+-webkit-animation: AnimationName 18s ease infinite;
+-moz-animation: AnimationName 18s ease infinite;
+animation: AnimationName 18s ease infinite;
 
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
 }
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes AnimationName { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+    
+}
+
 
 
 .fa-times-circle-o:before{
-    font-size: 20px;
+    font-size: 30px;
+     @media(max-width: 414px){
+         font-size: 40px;
+     }
+     @media(max-width: 375px){
+        font-size: 25px;
+     }
+    
 }
 
-
-h1 {
-    font-size: $h1-fontSize;
-    font-family: $font-stack;
+.header{
+    display: flex;
+    align-items: center;
+    font-size: 40px;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Cabin Sketch', cursive;
     color: white;
-    
+    margin-top: -200px;
+
+    @media (max-width: 414px){
+        font-size: 25px;
+        margin-top: -80px;
+    }
+   
+     @media(max-width: 320px){
+         font-size: 18px;
+         margin-top: -100px;
+     }
+
 }
 .strike{
     text-decoration: line-through grey;
@@ -41,38 +81,60 @@ h1 {
 
 //div styles
 .outerDiv {
-    border: 2px solid pink;
     display:flex;
     justify-content: center;
-    align-content: center;
-    // height: 100vh;
+    align-items: center;   
    
-    
+    @media(max-width: 414px){
+        margin-top: -100px;
+    }
+     
 }
 
 
 .innerDiv {
-    border: 2px solid blue;
+    border: 15px solid white;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 50px;
+    margin: 100px;
+    padding: 50px;
+    min-height: 700px;
+
+   @media(max-width: 414px){
+       width: 350px;
+       min-height: 500px;
+       border: 10px solid white;
+   }
+   @media(max-width: 375px){
+        min-width: 330px;
+        min-height: 500px;
+        padding: 10px;
+        border: 10px solid white;
+
+   }
+   @media(max-width: 320px){
+       min-width: 290px;
+       min-height: 400px;
+   }
+   
 }
 
 form{
-    // border: 2px solid green;
         input{
-            border-bottom: 2px solid white;
+            border-bottom: 5px solid white;
             border-top: none;
             border-right: none;
             border-left: none;
             height: 40px;
             background: none;
-            font-size: 35px;
+            font-size: 45px;
             font-family: $user-font2;
             color: white;
             text-align: center;
+            padding: 30px;
 
         }
        
@@ -84,13 +146,26 @@ form{
             display: none;
         
         }
+        @media (max-width: 414px){
+            input{
+                font-size: 25px;
+                width: 200px;
+                padding: 10px
+            }
+        }
+        @media(max-width: 375px){
+            input{
+                font-size: 18px;
+                
+            }
+        }
 }
 
 button{
     background: none;
     padding: 0;
     margin: 20px;
-    color: grey;
+    color: lightgrey;
     border: none;
        
 }
@@ -102,8 +177,9 @@ button:focus{
 ul {
     color: white;
     font-family: $user-font2;
-    font-size: 40px;
+    font-size: 50px;
     border-bottom: white;
+    margin-top: 10;
         li{
             padding: 10px;
             display: flex;
@@ -112,6 +188,20 @@ ul {
             height: 40px;
             margin: 15px;
              
+            @media (max-width: 414px){
+                padding: 10px;
+                font-size: 30px;
+            }
+            
+           
         }
+    @media (max-width: 375px){
+        margin-top: 5px;
+    }
+     @media(max-width: 320px){
+         font-size: 30px;
+         margin:0;
+                
+            }
       
 }

@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "firebase": "^4.6.2",
-    "node-sass": "^4.7.1"
+    "node-sass": "^4.7.1",
+    "react-twitter-widgets": "^1.7.1"
   }
 }
